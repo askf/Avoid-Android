@@ -53,9 +53,14 @@ var i;
 //Up to four fingers on screen ( i &lt; 5 )
 for (i = 0; i &lt; 5; i += 1;) {
     //When finger first touches screen
-    if (device_mouse_check_button_pressed(i, mb_left) &amp;&amp; position_meeting(device_mouse_x(i), device_mouse_y(i), obj_player) &amp;&amp; (drag &lt;0)) {
-        //Set Drag to the finger on the screen 
-        drag = i;
+    if (device_mouse_check_button_pressed(i, mb_left)) {
+        //Is the finger touching the player?
+        if (position_meeting(device_mouse_x(i), device_mouse_y(i), obj_player) &amp;&amp; (drag &lt;0)) {
+            //Set Drag to the finger on the screen 
+            drag = i;
+        } else {
+            instance_create(device_mouse_x(i), device_mouse_y(i), obj_proj_simple)
+        }
     }
     //Whilst finger stays on screen
     if (device_mouse_check_button(drag, mb_left) &amp;&amp; (drag &gt;=0)) {
